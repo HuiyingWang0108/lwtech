@@ -15,7 +15,7 @@ public class NumericPatternMenu {
    */
   public static int validateInt(String prompt, Scanner scanner) {
     while (true) {
-      System.out.print(prompt + ": ");
+      System.out.println(prompt + "");
       if (scanner.hasNextInt()) {
         return scanner.nextInt();
       } else {
@@ -51,17 +51,30 @@ public class NumericPatternMenu {
    * @return The generated numeric pattern as a string.
    */
   public static String numericPattern(int size, int pattern) {
-    StringBuilder result = new StringBuilder();
+    if (size <= 0) {
+      throw new IllegalArgumentException("Size must be a positive integer.");
+    }
+    StringBuilder res = new StringBuilder();
 
-    for (int i = 1; i <= size; i++) {
-      result.append(i);
+    if (pattern == 1) {
+      // Pattern in ascending order
+      for (int i = 1; i <= size; i++) {
+        res.append(i);
+      }
+      for (int i = size - 1; i >= 1; i--) {
+        res.append(i);
+      }
+    } else {
+      // Pattern in descending order
+      for (int i = size; i >= 1; i--) {
+        res.append(i);
+      }
+      for (int i = 2; i <= size; i++) {
+        res.append(i);
+      }
     }
 
-    if (pattern == 2) {
-      result.reverse();
-    }
-
-    return result.toString();
+    return res.toString();
   }
 
   public static void main(String[] args) {
@@ -73,7 +86,7 @@ public class NumericPatternMenu {
       System.out.println("1. Print Type I pattern (like 12321)");
       System.out.println("2. Print Type II pattern (like 32123)");
       System.out.println("3. Quit");
-      System.out.print("Enter your choice (1 - 3): ");
+      System.out.println("Enter your choice (1 - 3): ");
       int choice = validateInt("Please enter a valid menu choice", keyboard);
 
       if (choice == 1 || choice == 2) {
